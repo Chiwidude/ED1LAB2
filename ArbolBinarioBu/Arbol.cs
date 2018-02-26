@@ -212,7 +212,7 @@ namespace ArbolBinarioBu
         /// </summary>
         /// <param name="value">Valor buscado</param>
         /// <returns>Nodo con valor buscado</returns>
-        Nodo<T> Encontrar(T value)
+         public Nodo<T> Encontrar(T value)
         {
             var auxiliar = root;
             while (auxiliar.value.CompareTo(value) != 0)
