@@ -31,7 +31,7 @@ namespace ArbolBinarioBu
         /// <param name="value">Valor Nodo Nuevo</param>
         public void Insertar(T value)
         {
-            Nodo<T> newnode = new Nodo<T>(value); 
+            var newnode = new Nodo<T>(value); 
             if (root == null)
             {
                 root = newnode;
@@ -95,9 +95,9 @@ namespace ArbolBinarioBu
         /// <returns>Nodo Eliminado</returns>
         public Nodo<T> Eliminar(T valor)
         {
-            Nodo<T> auxiliar = root;
-            Nodo<T> padre = root;
-            bool esHijoIz = true;
+            var auxiliar = root;
+            var padre = root;
+            var esHijoIz = true;
             while (auxiliar.value.CompareTo(valor) != 0)
             {
                 padre = auxiliar;
@@ -164,7 +164,7 @@ namespace ArbolBinarioBu
             }
             else
             {
-                Nodo<T> reemplazo = Reemplazar(auxiliar);
+                var reemplazo = Reemplazar(auxiliar);
                 if (auxiliar == root)
                 {
                     root = reemplazo;
@@ -190,9 +190,9 @@ namespace ArbolBinarioBu
         /// <returns>Nodo de Reemplazo</returns>
         private Nodo<T> Reemplazar(Nodo<T> Nodoelmiminar)
         {
-            Nodo<T> reemplazopadre = Nodoelmiminar;
-            Nodo<T> reemplazo = Nodoelmiminar;
-            Nodo<T> auxiliar = Nodoelmiminar.derecho;
+            var reemplazopadre = Nodoelmiminar;
+            var reemplazo = Nodoelmiminar;
+            var auxiliar = Nodoelmiminar.derecho;
             while (auxiliar != null)
             {
                 reemplazopadre = reemplazo;
@@ -214,7 +214,7 @@ namespace ArbolBinarioBu
         /// <returns>Nodo con valor buscado</returns>
         Nodo<T> Encontrar(T value)
         {
-            Nodo<T> auxiliar = root;
+            var auxiliar = root;
             while (auxiliar.value.CompareTo(value) != 0)
             {
                 if (value.CompareTo(auxiliar.value) < 0)
@@ -248,7 +248,7 @@ namespace ArbolBinarioBu
         /// <returns>Contenido del arbol como una cadena de caracteres</returns>
         public string Infijo()
         {
-            string contenido = string.Empty;
+            var contenido = "";
             Infijo(root, ref contenido);
             return contenido;
         }
@@ -274,7 +274,7 @@ namespace ArbolBinarioBu
         /// <returns>Contenido del arbol como una cadena de caracteres</returns>
         public string Postfijo()
         {
-            string contenido = string.Empty;
+            var contenido = "";
             Postfijo(root, ref contenido);
             return contenido;
         }
@@ -300,13 +300,13 @@ namespace ArbolBinarioBu
         /// <returns>Contenido del arbol como una cadena de caracteres</returns>
         public string Prefijo()
         {
-            string contenido = string.Empty;
+            var contenido = " ";
 
             return contenido;
         }
 
         /// <summary>
-        /// Funcion recursiva que recore el arbol en orden prefijo
+        /// Funcion recursiva que recorre el arbol en orden prefijo
         /// </summary>
         /// <param name="raiz">Nodo Raiz</param>
         /// <param name="contenido">Cadena de caracteres con el contenido del arbol</param>
