@@ -190,7 +190,7 @@ namespace ArbolBinarioBu
         /// </summary>
         /// <param name="Nodoelmiminar">Nodo a Eliminar </param>
         /// <returns>Nodo de Reemplazo</returns>
-        private Nodo<T> Reemplazar(Nodo<T> Nodoelmiminar)
+        private static Nodo<T> Reemplazar(Nodo<T> Nodoelmiminar)
         {
             var reemplazopadre = Nodoelmiminar;
             var reemplazo = Nodoelmiminar;
