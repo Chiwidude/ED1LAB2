@@ -22,13 +22,6 @@ namespace Laboratorio2ED1.Models
             }
             else
                 throw new ArgumentException("No esta comparando los atributos correctos");
-
-
-            
-        }
-        public override string ToString()
-        {
-            return  Nombre + " " +  grupo;
         }
     }
 }

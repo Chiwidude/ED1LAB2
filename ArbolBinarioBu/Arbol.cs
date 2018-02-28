@@ -12,6 +12,7 @@ namespace ArbolBinarioBu
     /// <typeparam name="T">Tipo de Dato en Arbol</typeparam>
     public class Arbol<T>where T:IComparable
     {
+        List<T> mylist;
         /// <summary>
         /// Nodo Raiz
         /// </summary>
@@ -24,6 +25,7 @@ namespace ArbolBinarioBu
         {
             root = null;
         }
+        
 
         /// <summary>
         /// Inserta un Nuevo Nodo en Arbol
@@ -246,11 +248,11 @@ namespace ArbolBinarioBu
         /// Recorre el arbol siguiendo el orden infijo
         /// </summary>
         /// <returns>Contenido del arbol como una cadena de caracteres</returns>
-        public string Infijo()
+        public List<T> Infijo()
         {
-            var contenido = "";
-            Infijo(root, ref contenido);
-            return contenido;
+            
+            Infijo(root);
+            return mylist;
         }
 
         /// <summary>
@@ -258,25 +260,23 @@ namespace ArbolBinarioBu
         /// </summary>
         /// <param name="raiz">Nodo Raiz</param>
         /// <param name="contenido">Cadena de caracteres con el contenido del arbol</param>
-        private void Infijo(Nodo<T> raiz, ref string contenido)
+        private void Infijo(Nodo<T> raiz)
         {
+            mylist = new List<T>();
             if (raiz != null)
-            {
-                Infijo(raiz.izquierdo, ref contenido);
-                contenido += raiz.value.ToString() + "\n";
-                Infijo(raiz.derecho, ref contenido);
-            }
+                Infijo(raiz.izquierdo);
+                mylist.Add(raiz.value);
+                Infijo(raiz.derecho);
         }
 
         /// <summary>
         /// Recorre el arbol siguendo el orden postfijo
         /// </summary>
         /// <returns>Contenido del arbol como una cadena de caracteres</returns>
-        public string Postfijo()
-        {
-            var contenido = "";
-            Postfijo(root, ref contenido);
-            return contenido;
+        public List<T> Postfijo()
+        { 
+           Postfijo(root);
+            return mylist;
         }
 
         /// <summary>
@@ -284,25 +284,24 @@ namespace ArbolBinarioBu
         /// </summary>
         /// <param name="raiz">Nodo Raiz</param>
         /// <param name="contenido">Cadena de caracteres con el contenido del arbol</param>
-        private void Postfijo(Nodo<T> raiz, ref string contenido)
+        private void Postfijo(Nodo<T> raiz)
         {
+            mylist = new List<T>();
             if (raiz != null)
-            {
-                Postfijo(raiz.izquierdo, ref contenido);
-                Postfijo(raiz.derecho, ref contenido);
-                contenido += raiz.value.ToString() + "\n";
-            }
+                Postfijo(raiz.izquierdo);
+                Postfijo(raiz.derecho);
+                mylist.Add(raiz.value);
         }
 
         /// <summary>
         /// Recorre el arbol siguiendo el orden prefijo
         /// </summary>
         /// <returns>Contenido del arbol como una cadena de caracteres</returns>
-        public string Prefijo()
+        public List<T> Prefijo()
         {
-            var contenido = " ";
+            Prefijo(root);
 
-            return contenido;
+            return mylist;
         }
 
         /// <summary>
@@ -310,11 +309,13 @@ namespace ArbolBinarioBu
         /// </summary>
         /// <param name="raiz">Nodo Raiz</param>
         /// <param name="contenido">Cadena de caracteres con el contenido del arbol</param>
-        private void Prefijo(Nodo<T> raiz, ref string contenido)
+        private void Prefijo(Nodo<T> raiz)
         {
-            contenido += raiz.value.ToString() + "\n";
-            Prefijo(raiz.izquierdo, ref contenido);
-            Prefijo(raiz.derecho, ref contenido);
+            mylist = new List<T>();
+            if (raiz != null)
+                mylist.Add(raiz.value);
+            Prefijo(raiz.izquierdo);
+            Prefijo(raiz.derecho);
         }
 
         /// <summary>
