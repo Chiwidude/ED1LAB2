@@ -85,5 +85,10 @@ namespace Laboratorio2ED1.Controllers
                 return View();
             }
         }
+
+        public ActionResult JsonFile (HttpPostedFileBase jfile)
+        {
+            return null ;
+        }
     }
 }

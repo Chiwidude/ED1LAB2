@@ -103,7 +103,7 @@ namespace ArbolBinarioBu
             while (auxiliar.value.CompareTo(valor) != 0)
             {
                 padre = auxiliar;
-                if (valor.CompareTo(auxiliar.value) <= 0)
+                if (valor.CompareTo(auxiliar.value) < 0)
                 {
                     esHijoIz = true;
                     auxiliar = auxiliar.izquierdo;
@@ -250,7 +250,7 @@ namespace ArbolBinarioBu
         /// <returns>Contenido del arbol como una cadena de caracteres</returns>
         public List<T> Infijo()
         {
-            
+            mylist = new List<T>();
             Infijo(root);
             return mylist;
         }
@@ -262,11 +262,13 @@ namespace ArbolBinarioBu
         /// <param name="contenido">Cadena de caracteres con el contenido del arbol</param>
         private void Infijo(Nodo<T> raiz)
         {
-            mylist = new List<T>();
+           
             if (raiz != null)
+            {
                 Infijo(raiz.izquierdo);
                 mylist.Add(raiz.value);
                 Infijo(raiz.derecho);
+            }
         }
 
         /// <summary>
@@ -274,8 +276,9 @@ namespace ArbolBinarioBu
         /// </summary>
         /// <returns>Contenido del arbol como una cadena de caracteres</returns>
         public List<T> Postfijo()
-        { 
-           Postfijo(root);
+        {
+            mylist = new List<T>();
+            Postfijo(root);
             return mylist;
         }
 
@@ -286,11 +289,13 @@ namespace ArbolBinarioBu
         /// <param name="contenido">Cadena de caracteres con el contenido del arbol</param>
         private void Postfijo(Nodo<T> raiz)
         {
-            mylist = new List<T>();
+
             if (raiz != null)
+            {
                 Postfijo(raiz.izquierdo);
                 Postfijo(raiz.derecho);
                 mylist.Add(raiz.value);
+            }
         }
 
         /// <summary>
@@ -299,6 +304,7 @@ namespace ArbolBinarioBu
         /// <returns>Contenido del arbol como una cadena de caracteres</returns>
         public List<T> Prefijo()
         {
+            mylist = new List<T>();
             Prefijo(root);
 
             return mylist;
@@ -308,14 +314,15 @@ namespace ArbolBinarioBu
         /// Funcion recursiva que recorre el arbol en orden prefijo
         /// </summary>
         /// <param name="raiz">Nodo Raiz</param>
-        /// <param name="contenido">Cadena de caracteres con el contenido del arbol</param>
         private void Prefijo(Nodo<T> raiz)
         {
-            mylist = new List<T>();
+
             if (raiz != null)
+            {
                 mylist.Add(raiz.value);
-            Prefijo(raiz.izquierdo);
-            Prefijo(raiz.derecho);
+                Prefijo(raiz.izquierdo);
+                Prefijo(raiz.derecho);
+            }
         }
 
         /// <summary>
