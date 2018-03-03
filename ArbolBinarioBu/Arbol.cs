@@ -12,6 +12,7 @@ namespace ArbolBinarioBu
     /// <typeparam name="T">Tipo de Dato en Arbol</typeparam>
     public class Arbol<T>where T:IComparable
     {
+        List<T> mylist;
         /// <summary>
         /// Nodo Raiz
         /// </summary>
@@ -24,6 +25,7 @@ namespace ArbolBinarioBu
         {
             root = null;
         }
+        
 
         /// <summary>
         /// Inserta un Nuevo Nodo en Arbol
@@ -31,7 +33,7 @@ namespace ArbolBinarioBu
         /// <param name="value">Valor Nodo Nuevo</param>
         public void Insertar(T value)
         {
-            Nodo<T> newnode = new Nodo<T>(value); 
+            var newnode = new Nodo<T>(value); 
             if (root == null)
             {
                 root = newnode;
@@ -95,13 +97,13 @@ namespace ArbolBinarioBu
         /// <returns>Nodo Eliminado</returns>
         public Nodo<T> Eliminar(T valor)
         {
-            Nodo<T> auxiliar = root;
-            Nodo<T> padre = root;
-            bool esHijoIz = true;
+            var auxiliar = root;
+            var padre = root;
+            var esHijoIz = true;
             while (auxiliar.value.CompareTo(valor) != 0)
             {
                 padre = auxiliar;
-                if (valor.CompareTo(auxiliar.value) <= 0)
+                if (valor.CompareTo(auxiliar.value) < 0)
                 {
                     esHijoIz = true;
                     auxiliar = auxiliar.izquierdo;
@@ -164,7 +166,7 @@ namespace ArbolBinarioBu
             }
             else
             {
-                Nodo<T> reemplazo = Reemplazar(auxiliar);
+                var reemplazo = Reemplazar(auxiliar);
                 if (auxiliar == root)
                 {
                     root = reemplazo;
@@ -188,11 +190,11 @@ namespace ArbolBinarioBu
         /// </summary>
         /// <param name="Nodoelmiminar">Nodo a Eliminar </param>
         /// <returns>Nodo de Reemplazo</returns>
-        private Nodo<T> Reemplazar(Nodo<T> Nodoelmiminar)
+        private static Nodo<T> Reemplazar(Nodo<T> Nodoelmiminar)
         {
-            Nodo<T> reemplazopadre = Nodoelmiminar;
-            Nodo<T> reemplazo = Nodoelmiminar;
-            Nodo<T> auxiliar = Nodoelmiminar.derecho;
+            var reemplazopadre = Nodoelmiminar;
+            var reemplazo = Nodoelmiminar;
+            var auxiliar = Nodoelmiminar.derecho;
             while (auxiliar != null)
             {
                 reemplazopadre = reemplazo;
@@ -212,9 +214,9 @@ namespace ArbolBinarioBu
         /// </summary>
         /// <param name="value">Valor buscado</param>
         /// <returns>Nodo con valor buscado</returns>
-        Nodo<T> Encontrar(T value)
+         public Nodo<T> Encontrar(T value)
         {
-            Nodo<T> auxiliar = root;
+            var auxiliar = root;
             while (auxiliar.value.CompareTo(value) != 0)
             {
                 if (value.CompareTo(auxiliar.value) < 0)
@@ -246,11 +248,11 @@ namespace ArbolBinarioBu
         /// Recorre el arbol siguiendo el orden infijo
         /// </summary>
         /// <returns>Contenido del arbol como una cadena de caracteres</returns>
-        public string Infijo()
+        public List<T> Infijo()
         {
-            string contenido = string.Empty;
-            Infijo(root, ref contenido);
-            return contenido;
+            mylist = new List<T>();
+            Infijo(root);
+            return mylist;
         }
 
         /// <summary>
@@ -258,13 +260,14 @@ namespace ArbolBinarioBu
         /// </summary>
         /// <param name="raiz">Nodo Raiz</param>
         /// <param name="contenido">Cadena de caracteres con el contenido del arbol</param>
-        private void Infijo(Nodo<T> raiz, ref string contenido)
+        private void Infijo(Nodo<T> raiz)
         {
+           
             if (raiz != null)
             {
-                Infijo(raiz.izquierdo, ref contenido);
-                contenido += raiz.value.ToString() + "\n";
-                Infijo(raiz.derecho, ref contenido);
+                Infijo(raiz.izquierdo);
+                mylist.Add(raiz.value);
+                Infijo(raiz.derecho);
             }
         }
 
@@ -272,11 +275,11 @@ namespace ArbolBinarioBu
         /// Recorre el arbol siguendo el orden postfijo
         /// </summary>
         /// <returns>Contenido del arbol como una cadena de caracteres</returns>
-        public string Postfijo()
+        public List<T> Postfijo()
         {
-            string contenido = string.Empty;
-            Postfijo(root, ref contenido);
-            return contenido;
+            mylist = new List<T>();
+            Postfijo(root);
+            return mylist;
         }
 
         /// <summary>
@@ -284,13 +287,14 @@ namespace ArbolBinarioBu
         /// </summary>
         /// <param name="raiz">Nodo Raiz</param>
         /// <param name="contenido">Cadena de caracteres con el contenido del arbol</param>
-        private void Postfijo(Nodo<T> raiz, ref string contenido)
+        private void Postfijo(Nodo<T> raiz)
         {
+
             if (raiz != null)
             {
-                Postfijo(raiz.izquierdo, ref contenido);
-                Postfijo(raiz.derecho, ref contenido);
-                contenido += raiz.value.ToString() + "\n";
+                Postfijo(raiz.izquierdo);
+                Postfijo(raiz.derecho);
+                mylist.Add(raiz.value);
             }
         }
 
@@ -298,23 +302,27 @@ namespace ArbolBinarioBu
         /// Recorre el arbol siguiendo el orden prefijo
         /// </summary>
         /// <returns>Contenido del arbol como una cadena de caracteres</returns>
-        public string Prefijo()
+        public List<T> Prefijo()
         {
-            string contenido = string.Empty;
+            mylist = new List<T>();
+            Prefijo(root);
 
-            return contenido;
+            return mylist;
         }
 
         /// <summary>
-        /// Funcion recursiva que recore el arbol en orden prefijo
+        /// Funcion recursiva que recorre el arbol en orden prefijo
         /// </summary>
         /// <param name="raiz">Nodo Raiz</param>
-        /// <param name="contenido">Cadena de caracteres con el contenido del arbol</param>
-        private void Prefijo(Nodo<T> raiz, ref string contenido)
+        private void Prefijo(Nodo<T> raiz)
         {
-            contenido += raiz.value.ToString() + "\n";
-            Prefijo(raiz.izquierdo, ref contenido);
-            Prefijo(raiz.derecho, ref contenido);
+
+            if (raiz != null)
+            {
+                mylist.Add(raiz.value);
+                Prefijo(raiz.izquierdo);
+                Prefijo(raiz.derecho);
+            }
         }
 
         /// <summary>
