@@ -5,20 +5,20 @@ using System.Web;
 
 namespace Laboratorio2ED1.Models
 {
-    public class Pais : IComparable
+    public class Numero: IComparable
     {
-        public string Nombre { get; set; }
-        public string grupo { get; set; }
+        public int Valor { get; set; }
 
         public int CompareTo(object obj)
         {
-            if (obj == null) return 1;
+            if (obj == null)
+                return 1;
 
 
-            var Country = obj as Pais;
-            if (Country != null)
+            var number = obj as Numero;
+            if (number != null)
             {
-                return this.Nombre.CompareTo(Country.Nombre);
+                return this.Valor.CompareTo(number.Valor);
             }
             else
                 throw new ArgumentException("No esta comparando los atributos correctos");

@@ -7,50 +7,50 @@ using Laboratorio2ED1.DBContext;
 
 namespace Laboratorio2ED1.Controllers
 {
-    public class PaisController : Controller
+    public class PalabraController : Controller
     {
-        public DefaultConnection<Models.Pais> db = DefaultConnection<Models.Pais>.getInstance;
+        public DefaultConnection<Models.Palabra> db = DefaultConnection<Models.Palabra>.getInstance;
 
-        // GET: Pais
+        // GET: Palabra
         public ActionResult Index()
         {
-            return View(db.Paises.Infijo());
+            return View(db.Cadenas.Infijo());
         }
 
-        // GET: Pais/Details/5
+        // GET: Palabra/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Pais/Create
+        // GET: Palabra/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Pais/Create
+        // POST: Palabra/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include ="Nombre,grupo")]Models.Pais pais)
+        public ActionResult Create([Bind(Include = "Valor")]Models.Palabra palabra)
         {
             if (ModelState.IsValid)
             {
-                db.Paises.Insertar(pais);
+                db.Cadenas.Insertar(palabra);
 
-                return RedirectToAction("Index","Pais");
+                return RedirectToAction("Index", "Palabra");
             }
 
-            return View(pais);
+            return View(palabra);
         }
 
-        // GET: Pais/Edit/5
+        // GET: Palabra/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Pais/Edit/5
+        // POST: Palabra/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -66,13 +66,13 @@ namespace Laboratorio2ED1.Controllers
             }
         }
 
-        // GET: Pais/Delete/5
+        // GET: Palabra/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Pais/Delete/5
+        // POST: Palabra/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
@@ -86,11 +86,6 @@ namespace Laboratorio2ED1.Controllers
             {
                 return View();
             }
-        }
-
-        public ActionResult JsonFile (HttpPostedFileBase jfile)
-        {
-            return null ;
         }
     }
 }
