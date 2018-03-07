@@ -9,7 +9,7 @@ namespace Laboratorio2ED1.Controllers
 {
     public class PaisController : Controller
     {
-        public DefaultConnection db = new  DefaultConnection();
+        public DefaultConnection db = DefaultConnection.getInstance;
 
         // GET: Pais
         public ActionResult IndexPais()
@@ -44,7 +44,7 @@ namespace Laboratorio2ED1.Controllers
             {
                 db.Paises.Insertar(pais);
 
-                return RedirectToAction("Index","Pais");
+                return RedirectToAction(nameof(IndexPais));
             }
 
             return View(pais);
@@ -56,15 +56,19 @@ namespace Laboratorio2ED1.Controllers
         // Post: Int/create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateInt(int numero)
+        public ActionResult CreateInt( FormCollection numero)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Numeros.Insertar(numero);
 
-                return RedirectToAction("IndexInt", "Pais");
+                db.Numeros.Insertar(Convert.ToInt32(numero["valor"]));
+
+                return RedirectToAction(nameof(IndexNumero));
             }
-            return View(numero);
+            catch
+            {
+                return View(numero);
+            }
         }
         public ActionResult CreateString()
         {
@@ -73,14 +77,17 @@ namespace Laboratorio2ED1.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public ActionResult CreateString(string palabra)
+        public ActionResult CreateString(FormCollection cadena)
         {
-            if(ModelState.IsValid)
+            try
             {
-                db.Cadenas.Insertar(palabra);
-                return RedirectToAction("IndexWord", "Pais");
+                db.Cadenas.Insertar(cadena["Valor"]);
+                return RedirectToAction(nameof(IndexWord));
             }
-            return View(palabra);
+            catch
+            {
+                return View(cadena["Valor"]);
+            }
         }
         // GET: Pais/Edit/5
         public ActionResult Edit(int id)

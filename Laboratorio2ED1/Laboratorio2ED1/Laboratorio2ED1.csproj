@@ -188,12 +188,12 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Pais\Index.cshtml" />
-    <Content Include="Views\Palabra\Index.cshtml" />
-    <Content Include="Views\Numero\Index.cshtml" />
-    <Content Include="Views\Numero\Create.cshtml" />
+    <Content Include="Views\Pais\IndexPais.cshtml" />
     <Content Include="Views\Pais\Create.cshtml" />
-    <Content Include="Views\Palabra\Create.cshtml" />
+    <Content Include="Views\Pais\CreateInt.cshtml" />
+    <Content Include="Views\Pais\IndexNumero.cshtml" />
+    <Content Include="Views\Pais\CreateString.cshtml" />
+    <Content Include="Views\Pais\IndexWord.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
