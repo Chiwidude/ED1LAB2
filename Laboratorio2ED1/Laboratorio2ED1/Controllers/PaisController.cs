@@ -18,7 +18,7 @@ namespace Laboratorio2ED1.Controllers
         }
 
         // GET: String
-        public ActionResult IndexString()
+        public ActionResult IndexWord()
         {
             return View(db.Cadenas.Infijo());
         }
@@ -49,7 +49,39 @@ namespace Laboratorio2ED1.Controllers
 
             return View(pais);
         }
+        public ActionResult CreateInt()
+        {
+            return View();
+        }
+        // Post: Int/create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateInt(int numero)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Numeros.Insertar(numero);
 
+                return RedirectToAction("IndexInt", "Pais");
+            }
+            return View(numero);
+        }
+        public ActionResult CreateString()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        public ActionResult CreateString(string palabra)
+        {
+            if(ModelState.IsValid)
+            {
+                db.Cadenas.Insertar(palabra);
+                return RedirectToAction("IndexWord", "Pais");
+            }
+            return View(palabra);
+        }
         // GET: Pais/Edit/5
         public ActionResult Edit(int id)
         {
