@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Laboratorio2ED1.DBContext;
+using System.Net;
 
 namespace Laboratorio2ED1.Controllers
 {
@@ -69,23 +70,34 @@ namespace Laboratorio2ED1.Controllers
         // GET: Numero/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            Models.Numero _aux = new Models.Numero();
+            _aux.Valor = id;
+
+            if (_aux == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Models.Numero numero = db.Numeros.Encontrar(_aux).value;
+
+            if (numero == null)
+            {
+                return HttpNotFound();
+            }
+            return View(numero);
         }
 
         // POST: Numero/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
         {
-            try
-            {
-                // TODO: Add delete logic here
+            Models.Numero _aux = new Models.Numero();
+            _aux.Valor = id;
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            db.Numeros.Eliminar(db.Numeros.Encontrar(_aux).value);  
+            
+            return RedirectToAction("Index");
         }
     }
 }

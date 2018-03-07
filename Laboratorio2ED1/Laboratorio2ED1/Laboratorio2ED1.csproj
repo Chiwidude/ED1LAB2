@@ -198,6 +198,9 @@
     <Content Include="Views\Numero\Create.cshtml" />
     <Content Include="Views\Pais\Create.cshtml" />
     <Content Include="Views\Palabra\Create.cshtml" />
+    <Content Include="Views\Numero\Delete.cshtml" />
+    <Content Include="Views\Palabra\Delete.cshtml" />
+    <Content Include="Views\Pais\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Laboratorio2ED1.DBContext;
+using System.Net;
 
 namespace Laboratorio2ED1.Controllers
 {
@@ -67,25 +68,38 @@ namespace Laboratorio2ED1.Controllers
         }
 
         // GET: Pais/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string id, string group)
         {
-            return View();
+            Models.Pais _aux = new Models.Pais();
+            _aux.Nombre = id;
+            _aux.grupo = group;
+
+            if (_aux == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Models.Pais pais = db.Paises.Encontrar(_aux).value;
+
+            if (pais == null)
+            {
+                return HttpNotFound();
+            }
+            return View(pais);
         }
 
         // POST: Pais/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteCondirmed(string id, string group)
         {
-            try
-            {
-                // TODO: Add delete logic here
+            Models.Pais _aux = new Models.Pais();
+            _aux.Nombre = id;
+            _aux.grupo = group;
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            db.Paises.Eliminar(db.Paises.Encontrar(_aux).value);
+
+            return RedirectToAction("Index");
         }
 
         public ActionResult JsonFile (HttpPostedFileBase jfile)

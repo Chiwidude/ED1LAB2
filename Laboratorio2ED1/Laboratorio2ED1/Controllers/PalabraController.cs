@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Laboratorio2ED1.DBContext;
+using ArbolBinarioBu;
+using System.Net;
 
 namespace Laboratorio2ED1.Controllers
 {
@@ -67,25 +69,36 @@ namespace Laboratorio2ED1.Controllers
         }
 
         // GET: Palabra/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string id)
         {
-            return View();
+            Models.Palabra _aux = new Models.Palabra();
+            _aux.Valor = id;
+
+            if (_aux == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Models.Palabra palabra = db.Cadenas.Encontrar(_aux).value;
+
+            if (palabra == null)
+            {
+                return HttpNotFound();
+            }
+            return View(palabra);
         }
 
         // POST: Palabra/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(string id)
         {
-            try
-            {
-                // TODO: Add delete logic here
+            Models.Palabra _aux = new Models.Palabra();
+            _aux.Valor = id;
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            db.Cadenas.Eliminar(db.Cadenas.Encontrar(_aux).value);
+
+            return RedirectToAction("Index");
         }
     }
 }
