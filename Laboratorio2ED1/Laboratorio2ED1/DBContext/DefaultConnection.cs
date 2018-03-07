@@ -5,19 +5,19 @@ using System.Web;
 using ArbolBinarioBu;
 namespace Laboratorio2ED1.DBContext
 {
-    public class DefaultConnection<T>
+    public class DefaultConnection
     {
-        private static volatile DefaultConnection<T> instance;
+        private static volatile DefaultConnection instance;
 
         private static object sync = new Object();
 
         public Arbol<Models.Pais> Paises = new Arbol<Models.Pais>();
 
-        public Arbol<Models.Numero> Numeros = new Arbol<Models.Numero>();
+        public Arbol<int> Numeros = new Arbol<int>();
 
-        public Arbol<Models.Palabra> Cadenas = new Arbol<Models.Palabra>();
+        public Arbol<string> Cadenas = new Arbol<string>();
 
-        public static DefaultConnection<T> getInstance
+        public static DefaultConnection getInstance
         {
             get
             {
@@ -27,7 +27,7 @@ namespace Laboratorio2ED1.DBContext
                     {
                         if (instance == null)
                         {
-                            instance = new DefaultConnection<T>();
+                            instance = new DefaultConnection();
                         }
                     }
                 }

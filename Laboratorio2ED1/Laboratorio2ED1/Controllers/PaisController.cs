@@ -9,18 +9,24 @@ namespace Laboratorio2ED1.Controllers
 {
     public class PaisController : Controller
     {
-        public DefaultConnection<Models.Pais> db = DefaultConnection<Models.Pais>.getInstance;
+        public DefaultConnection db = new  DefaultConnection();
 
         // GET: Pais
-        public ActionResult Index()
+        public ActionResult IndexPais()
         {
             return View(db.Paises.Infijo());
         }
 
-        // GET: Pais/Details/5
-        public ActionResult Details(int id)
+        // GET: String
+        public ActionResult IndexString()
         {
-            return View();
+            return View(db.Cadenas.Infijo());
+        }
+
+        // GET: Int
+        public ActionResult IndexNumero()
+        {
+            return View(db.Numeros.Infijo());
         }
 
         // GET: Pais/Create
