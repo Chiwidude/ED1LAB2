@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "UploadPais";
+}
+
+<h2>UploadPais</h2>
+@using (Html.BeginForm("UploadPais", "Pais", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    @Html.TextBox("file", "", new { type = "file" }) <br />
+
+    <input type="submit" value="Subir" />
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
