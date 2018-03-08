@@ -10,13 +10,13 @@ namespace ArbolBinarioBu
     /// Arbol BB
     /// </summary>
     /// <typeparam name="T">Tipo de Dato en Arbol</typeparam>
-    public class Arbol<T>where T:IComparable
+    public class Arbol<T> where T : IComparable
     {
         List<T> mylist;
         /// <summary>
         /// Nodo Raiz
         /// </summary>
-        public  Nodo<T> root;
+        public Nodo<T> root;
 
         /// <summary>
         /// Constructor de Arbol BB
@@ -25,7 +25,7 @@ namespace ArbolBinarioBu
         {
             root = null;
         }
-        
+
 
         /// <summary>
         /// Inserta un Nuevo Nodo en Arbol
@@ -33,7 +33,7 @@ namespace ArbolBinarioBu
         /// <param name="value">Valor Nodo Nuevo</param>
         public void Insertar(T value)
         {
-            var newnode = new Nodo<T>(value); 
+            var newnode = new Nodo<T>(value);
             if (root == null)
             {
                 root = newnode;
@@ -83,13 +83,6 @@ namespace ArbolBinarioBu
             }
         }
 
-        /* 
-         * - Añadir la forma en la que cambia la propiedad Nivel en los 
-         *   nodos del arbol al ejeutar la eliminacion de un nodo
-         * - Esta Propiedad se utiliza para determinar la altura del Arbol
-         * - Si hay una mejor implementacion para determinar la altura del
-         *   Arbol, modificar el metodo y la Propiedad
-         */ 
         /// <summary>
         /// Eliminar la primera apracición de un valor en el Arbol
         /// </summary>
@@ -214,7 +207,7 @@ namespace ArbolBinarioBu
         /// </summary>
         /// <param name="value">Valor buscado</param>
         /// <returns>Nodo con valor buscado</returns>
-         public Nodo<T> Encontrar(T value)
+        public Nodo<T> Encontrar(T value)
         {
             var auxiliar = root;
             while (auxiliar.value.CompareTo(value) != 0)
@@ -232,7 +225,7 @@ namespace ArbolBinarioBu
                     return null;
                 }
             }
-            return auxiliar;    
+            return auxiliar;
         }
 
         /// <summary>
@@ -262,7 +255,7 @@ namespace ArbolBinarioBu
         /// <param name="contenido">Cadena de caracteres con el contenido del arbol</param>
         private void Infijo(Nodo<T> raiz)
         {
-           
+
             if (raiz != null)
             {
                 Infijo(raiz.izquierdo);
@@ -325,34 +318,135 @@ namespace ArbolBinarioBu
             }
         }
 
-        /// <summary>
-        /// Altura del Arbol
-        /// </summary>
-        public int Altura
-        {
-            get
-            {
-                return setAltura(root);
-            }
-        }
 
         /// <summary>
         /// Funcion recursiva que determina la altura de del Arbol
         /// </summary>
         /// <param name="actual">Nodo Raiz</param>
         /// <returns>Altura de Arbol con Nodo Raiz</returns>
-        private int setAltura(Nodo<T> actual)
+        private int Altura(Nodo<T> actual)
         {
             if (actual != null)
             {
-                return Math.Max
-                    (actual.nivel,
-                    Math.Max(setAltura(actual.izquierdo), setAltura(actual.derecho)));
+                var alturaizquierda = Altura(actual.izquierdo);
+                var alturaDerecha = Altura(actual.derecho);
+
+                if (alturaizquierda > alturaDerecha)
+                {
+                    return alturaizquierda + 1;
+
+                }
+                else
+                {
+                    return alturaDerecha + 1;
+                }
+
             }
             else
             {
-                return 0;
+                return -1;
             }
         }
+        private int AbsValue(int one, int two)
+        {
+            if ((one - two) < 0)
+            {
+                return (one - two) * -1;
+            }
+            else
+            {
+                return (one - two);
+            }
+        }
+        public Nodo<T> NodoDesbalanceado()
+        {
+            return EncontrarNodoDesbalanceado(root);
+        }
+        private Nodo<T> EncontrarNodoDesbalanceado(Nodo<T> node)
+        {
+            if (node != null)
+            {
+                var balance = AbsValue(Altura(node.izquierdo), Altura(node.derecho));
+
+                if (balance <= 1)
+                {
+                    if (node.izquierdo != null)
+                    {
+                        return EncontrarNodoDesbalanceado(node.izquierdo);
+                    }
+                    else
+                    {
+                        return EncontrarNodoDesbalanceado(node.derecho);
+                    }
+                }
+                else
+                {
+                    return node;
+                }
+            }
+            else
+            {
+                return null;
+            }
+        }
+        protected bool Balanceado(Nodo<T> node)
+        {
+            bool valor;
+
+            if (node.izquierdo == null && node.derecho != null)
+            {
+                valor = this.Balanceado(node.derecho) && (AbsValue(0, Altura(node.derecho)) <= 1);
+                return valor;
+            }
+            else if(node.derecho == null && node.izquierdo != null)
+            {
+                valor = this.Balanceado(node.izquierdo) && (AbsValue(Altura(node.izquierdo), 0) <= 1);
+                return valor;
+            }
+            else if(node.derecho == null && node.izquierdo == null)
+            {
+                return true;
+            }
+            else
+            {
+                valor = this.Balanceado(node.izquierdo) && this.Balanceado(node.derecho) && (AbsValue(Altura(node.izquierdo), Altura(node.derecho))<= 1);
+                return valor;
+            }
+        }
+        public bool Balanceado()
+        {
+            if (root == null)
+                return true;
+
+            return Balanceado(root);
+        }
+        
+        protected bool Degenerado(Nodo<T> nodo)
+        {
+            if(nodo.izquierdo != null)
+            {
+                if(nodo.derecho != null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return Degenerado(nodo.izquierdo);
+                }
+            } else
+            {
+                if(nodo.derecho != null)
+                {
+                    return Degenerado(nodo.derecho);
+                }else
+                {
+                    return true;
+                }
+            }
+        }
+        
+            
     }
 }
+    
+
