@@ -362,6 +362,11 @@ namespace ArbolBinarioBu
         {
             return EncontrarNodoDesbalanceado(root);
         }
+        /// <summary>
+        /// Fúnción recursiva, que encuentra el nodo que desbalancea el arbol
+        /// </summary>
+        /// <param name="node"></param>nodo con el cual realiza la búsqueda
+        /// <returns></returns> Nodo que produce el desbalance, en caso exista alguno
         private Nodo<T> EncontrarNodoDesbalanceado(Nodo<T> node)
         {
             if (node != null)
@@ -389,6 +394,11 @@ namespace ArbolBinarioBu
                 return null;
             }
         }
+        /// <summary>
+        /// Función que recorre el arbol y determina si el arbol se encuentra balanceado o no
+        /// </summary>
+        /// <param name="node"></param> Nodo con el cual realiza el recorrido
+        /// <returns></returns> verdadero si está balanceado o falso en caso no lo esté
         protected bool Balanceado(Nodo<T> node)
         {
             bool valor;
@@ -420,7 +430,11 @@ namespace ArbolBinarioBu
 
             return Balanceado(root);
         }
-        
+        /// <summary>
+        /// Función que determina si el árbol es degenerado
+        /// </summary>
+        /// <param name="nodo"></param> Nodo inicio de cada ejecución
+        /// <returns></returns> verdadero si está degenerado o falso en caso contrario
         protected bool Degenerado(Nodo<T> nodo)
         {
             if(nodo.izquierdo != null)
@@ -443,6 +457,14 @@ namespace ArbolBinarioBu
                     return true;
                 }
             }
+        }
+        public bool Degenerado()
+        {
+            if (root == null)
+                return false;
+            return Degenerado(root);
+               
+            
         }
         
             
