@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Laboratorio2ED1.DBContext;
@@ -112,26 +113,89 @@ namespace Laboratorio2ED1.Controllers
         }
 
         // GET: Pais/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string id, string group)
         {
-            return View();
+            var aux = new Models.Pais
+            {
+                Nombre = id,
+                grupo = group
+            };
+            if (aux.Nombre == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var pais = db.Paises.Encontrar(aux).value;
+
+            if (pais == null)
+            {
+                return HttpNotFound();
+            }
+            return View(pais);
         }
 
         // POST: Pais/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [HttpPost, ActionName(nameof(Delete))]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteCondirmed(string id, string group)
+        {
+            var _aux = new Models.Pais
+            {
+                Nombre = id,
+                grupo = group
+            };
+
+            db.Paises.Eliminar(db.Paises.Encontrar(_aux).value);
+
+            return RedirectToAction(nameof(IndexPais));
+        }
+        public ActionResult DeleteString(string id)
+        {
+            var valor = db.Cadenas.Encontrar(id).value;
+          
+            
+            return View();
+        }
+        [HttpPost, ActionName(nameof(DeleteString))]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteString(string id, FormCollection collection)
         {
             try
             {
                 // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                var valor = db.Cadenas.Encontrar(id);
+                db.Cadenas.Eliminar(valor.value);
+                
+                return RedirectToAction(nameof(IndexWord));
             }
             catch
             {
                 return View();
             }
         }
+        public ActionResult DeleteInt(int id)
+        {
+            var valor = db.Numeros.Encontrar(id).value;
+            
+            return View(valor);
+        }
+        [HttpPost,ActionName(nameof(DeleteInt))]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteInt(int id, FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add delete logic here
+                var valor = db.Numeros.Encontrar(id);
+                db.Numeros.Eliminar(valor.value);
+                return RedirectToAction(nameof(IndexNumero));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
 
         public ActionResult JsonFile (HttpPostedFileBase jfile)
         {

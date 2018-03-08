@@ -1,0 +1,33 @@
+﻿@model System.Int32
+@{
+    ViewBag.Title = "DeleteInt";
+}
+
+<h2>DeleteInt</h2>
+<h3>Estas seguro de eliminar</h3>
+<div>
+    <h4>Entero</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Número")
+        </dt>
+
+        <dd>
+
+            @Html.DisplayName(Model.ToString())
+        </dd>
+
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "IndexNumero")
+        </div>
+    }
+</div>

@@ -194,6 +194,9 @@
     <Content Include="Views\Pais\IndexNumero.cshtml" />
     <Content Include="Views\Pais\CreateString.cshtml" />
     <Content Include="Views\Pais\IndexWord.cshtml" />
+    <Content Include="Views\Pais\Delete.cshtml" />
+    <Content Include="Views\Pais\DeleteInt.cshtml" />
+    <Content Include="Views\Pais\DeleteString.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
