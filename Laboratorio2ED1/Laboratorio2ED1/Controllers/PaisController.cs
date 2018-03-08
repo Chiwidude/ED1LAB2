@@ -5,6 +5,10 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Laboratorio2ED1.DBContext;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Laboratorio2ED1.Clase;
+using ArbolBinarioBu;
 
 namespace Laboratorio2ED1.Controllers
 {
@@ -230,10 +234,91 @@ namespace Laboratorio2ED1.Controllers
             }
         }
 
-
-        public ActionResult JsonFile (HttpPostedFileBase jfile)
+        [HttpGet]
+        public ActionResult UploadInt()
         {
-            return null ;
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UploadInt(HttpPostedFileBase file)
+        {
+            try
+            {
+                if (!file.FileName.EndsWith(".json"))
+                    return View();
+                if (file.ContentLength > 0)
+                {
+                    var json = new Archivo_Json<int>();
+                    Nodo<int> raiz = json.Dato(file.InputStream);
+                    db.Numeros.root = raiz;
+                    return RedirectToAction("IndexNumero");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult UploadPais()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UploadPais(HttpPostedFileBase file)
+        {
+            try
+            {
+                if (!file.FileName.EndsWith(".json"))
+                    return View();
+                if (file.ContentLength > 0)
+                {
+                    var json = new Archivo_Json<Models.Pais>();
+                    Nodo<Models.Pais> raiz = json.Dato(file.InputStream);
+                    db.Paises.root = raiz;
+                    return RedirectToAction("IndexPais");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult UploadString()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UploadStriing(HttpPostedFileBase file)
+        {
+            try
+            {
+                if (!file.FileName.EndsWith(".json"))
+                    return View();
+                if (file.ContentLength > 0)
+                {
+                    var json = new Archivo_Json<string>();
+                    Nodo<string> raiz = json.Dato(file.InputStream);
+                    db.Cadenas.root = raiz;
+                    return RedirectToAction("IndexWord");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return View();
         }
     }
 }
