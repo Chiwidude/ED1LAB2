@@ -15,19 +15,53 @@ namespace Laboratorio2ED1.Controllers
         // GET: Pais
         public ActionResult IndexPais()
         {
-            return View(db.Paises.Infijo());
+            if (db.Orden == 0)
+                return View(db.Paises.Infijo());
+            else if (db.Orden == 1)
+                return View(db.Paises.Prefijo());
+            else
+                return View(db.Paises.Postfijo());
+        }
+
+        public ActionResult OrdenWord(int id, int tipo)
+        {
+            try
+            {
+                db.Orden = id;
+
+                if (tipo == 0)
+                    return RedirectToAction(nameof(IndexPais));
+                else if (tipo == 1)
+                    return RedirectToAction(nameof(IndexNumero));
+                else
+                    return RedirectToAction(nameof(IndexWord));
+            }
+            catch
+            {
+                return View();
+            }
         }
 
         // GET: String
         public ActionResult IndexWord()
         {
-            return View(db.Cadenas.Infijo());
+            if (db.Orden == 0)
+                return View(db.Cadenas.Infijo());
+            else if (db.Orden == 1)
+                return View(db.Cadenas.Prefijo());
+            else
+                return View(db.Cadenas.Postfijo());
         }
 
         // GET: Int
         public ActionResult IndexNumero()
         {
-            return View(db.Numeros.Infijo());
+            if (db.Orden == 0)
+                return View(db.Numeros.Infijo());
+            else if (db.Orden == 1)
+                return View(db.Numeros.Prefijo());
+            else
+                return View(db.Numeros.Postfijo());
         }
 
         // GET: Pais/Create
@@ -75,9 +109,9 @@ namespace Laboratorio2ED1.Controllers
         {
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-
         public ActionResult CreateString(FormCollection cadena)
         {
             try
