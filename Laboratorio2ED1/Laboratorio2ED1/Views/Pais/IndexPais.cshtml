@@ -7,7 +7,10 @@
 <h2>Paises</h2>
 
 <p>
-    @Html.ActionLink("Crear País", "Create", "Pais")
+    @Html.ActionLink("Crear País", "Create", "Pais") | 
+    @Html.ActionLink("Orden InFijo", "OrdenWord", new { id = 0, tipo = 0 }) |
+    @Html.ActionLink("Orden PreFijo", "OrdenWord", new { id = 1, tipo = 0 }) |
+    @Html.ActionLink("Orden Postfijo", "OrdenWord", new { id = 2, tipo = 0 })
 </p>
 <table class="table">
     <tr>

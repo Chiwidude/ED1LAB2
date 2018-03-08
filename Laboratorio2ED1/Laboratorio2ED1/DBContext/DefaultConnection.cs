@@ -17,6 +17,8 @@ namespace Laboratorio2ED1.DBContext
 
         public Arbol<string> Cadenas = new Arbol<string>();
 
+        public int Orden { get; set; }
+
         public static DefaultConnection getInstance
         {
             get
