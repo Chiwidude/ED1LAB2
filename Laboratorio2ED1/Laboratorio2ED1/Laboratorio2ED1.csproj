@@ -199,9 +199,6 @@
     <Content Include="Views\Pais\DeleteInt.cshtml" />
     <Content Include="Views\Pais\DeleteString.cshtml" />
     <Content Include="Views\Pais\JsonFile.cshtml" />
-    <Content Include="Views\Pais\UploadInt.cshtml" />
-    <Content Include="Views\Pais\UploadPais.cshtml" />
-    <Content Include="Views\Pais\UploadString.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
