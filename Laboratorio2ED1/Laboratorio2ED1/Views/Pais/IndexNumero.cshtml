@@ -7,7 +7,10 @@
 <h2>IndexNumero</h2>
 
 <p>
-    @Html.ActionLink("Create New", "CreateInt")
+    @Html.ActionLink("Create New", "CreateInt") | 
+    @Html.ActionLink("Orden InFijo", "OrdenWord", new { id = 0, tipo = 1 }) |
+    @Html.ActionLink("Orden PreFijo", "OrdenWord", new { id = 1, tipo = 1 }) |
+    @Html.ActionLink("Orden Postfijo", "OrdenWord", new { id = 2, tipo = 1 })
 </p>
 <table class="table">
     <tr>

@@ -5,7 +5,10 @@
 
 <h2>IndexWord</h2>
 <p>
-    @Html.ActionLink("Create New", "CreateString")
+    @Html.ActionLink("Create New", "CreateString") |
+    @Html.ActionLink("Orden InFijo", "OrdenWord", new { id = 0, tipo = 2 }) |
+    @Html.ActionLink("Orden PreFijo", "OrdenWord", new { id = 1, tipo = 2 }) |
+    @Html.ActionLink("Orden Postfijo", "OrdenWord", new { id = 2, tipo = 2 })
 </p>
 <table class="table">
     <tr>
